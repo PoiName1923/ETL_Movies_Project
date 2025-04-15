@@ -11,5 +11,7 @@ ENV PATH=$JAVA_HOME/bin:$PATH
 
 #Install requirements
 USER airflow
-COPY requirements.txt /opt/airflow/requirements.txt
-RUN pip install -r /opt/airflow/requirements.txt
+COPY requirements_airflow.txt /opt/airflow/requirements_airflow.txt
+RUN pip install -r /opt/airflow/requirements_airflow.txt
+
+WORKDIR /opt/airflow/dags

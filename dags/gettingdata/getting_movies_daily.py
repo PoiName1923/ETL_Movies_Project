@@ -1,3 +1,10 @@
+import sys
+import os
+
+# Thêm đường dẫn gốc của dags vào PYTHONPATH
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+
 import requests
 import pandas as pd
 import requests

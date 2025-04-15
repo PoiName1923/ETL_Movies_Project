@@ -1,0 +1,8 @@
+apache-airflow[postgres]==2.10.0
+pandas
+numpy
+matplotlib
+seaborn
+psycopg2-binary
+pymongo==4.11.3
+pyspark==3.5.0

@@ -8,8 +8,8 @@ RUN apt-get update && apt-get install -y openjdk-17-jdk && \
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 ENV PATH=$JAVA_HOME/bin:$PATH
 
-COPY requirements.txt .
+COPY requirements_jupyter.txt .
 
 # Cài đặt các thư viện Python cần thiết
 RUN pip install --upgrade pip \
-    && pip install -r requirements.txt
+    && pip install -r requirements_jupyter.txt

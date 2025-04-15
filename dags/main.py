@@ -16,27 +16,26 @@ with DAG(
     dag_id='etl_process',
     default_args=default_args,
     description='First Project With Airflow',
-    schedule_interval='@daily',
-    start_date=datetime(2025, 4, 10),
-    end_date=datetime(2025, 4, 11),
+    schedule_interval='@once',
+    start_date=datetime(2025, 4, 11),
     catchup=False,
     tags=['project'],
 ) as dag:
 
     t1 = BashOperator(
         task_id='bronze_process',
-        bash_command='python /opt/airflow/dags/medaliop/bronze.py'
+        bash_command='python /opt/airflow/dags/medalion/bronze.py'
     )
 
     t2 = BashOperator(
         task_id='sliver_process',
-        bash_command='python /opt/airflow/dags/medalion/sliver.py'
+        bash_command='python /opt/airflow/dags/medalion/silver.py'
     )
 
     t3 = BashOperator(
         task_id='gold_process',
-        bash_command='python /opt/airflow/dags/medaliop/gold.py'
+        bash_command='python /opt/airflow/dags/medalion/gold.py'
     )
 
-    # Thiết lập thứ tự thực hiện: get_movies → bronze → mongodb
+    # Thiết lập thứ tự thực hiện: bronze -> sliver -> mongo
     t1 >> t2 >> t3

@@ -7,4 +7,3 @@ pymongo==4.11.3
 pyspark==3.5.0
 psycopg2-binary
 jupyterlab
-apache-airflow[postgres]==2.10.0

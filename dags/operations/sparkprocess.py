@@ -9,7 +9,7 @@ def spark_session(master: str, appName: str, jars: list = None, config: dict = N
     try:
         builder = SparkSession.builder.master(master).appName(appName)
         if jars:
-            builder = builder.config("spark.jars", ",".join(jars))
+            builder = builder.config("spark.jars.packages", ",".join(jars))
         if config:
             for key, value in config.items():
                 builder = builder.config(key, value)
@@ -32,8 +32,11 @@ class Spark_Operation:
         self.spark = spark
 
     '''Read data from HDFS'''
-    def read_hdfs(self, path, format="parquet", **options):
-        return self.spark.read.format(format).options(**options).load(path)
+    def read_hdfs(self, path, format="parquet", schema = None, **options):
+        reader = self.spark.read.format(format).options(**options)
+        if schema is not None:
+            reader = reader.schema(schema)
+        return reader.load(path)
     
     '''Write data from HDFS'''
     def write_hdfs(self, df, path, format="parquet", mode="overwrite", **options):

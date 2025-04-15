@@ -1,3 +1,11 @@
+import sys
+import os
+
+# Thêm đường dẫn gốc của dags vào PYTHONPATH
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+
+
 import pandas as pd
 import requests
 from datetime import datetime
@@ -62,7 +70,7 @@ def loading_movies_name(crawl_date : str):
                                         ]
         
         # Nếu có dữ liệu mới thì thêm vào
-        if unique_movies:
+        if not unique_movies.empty:
             client_op.insert_many(db_name="movies_db",collection_name="movies_name",
                                 data=unique_movies)
             print(f"Have {len(unique_movies)} new movie was added in {cur_date}")
